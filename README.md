@@ -6,3 +6,8 @@
 - MongoDB.Driver (Package)
 - Swagger
 - MongoDB (Banco de Dados)
+## Updates
+Atualmente a API apenas insere um endereço e busca por uma informação de indereço criada
+
+# Configuração
+Escrevendo...
