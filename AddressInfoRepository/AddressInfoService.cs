@@ -11,22 +11,22 @@ namespace AddressInfoRepository
         private readonly IMongoCollection<AddressInfo> _addressCollection;
 
         public AddressInfosService(
-            IOptions<AddressDataBaseSettings> bookStoreDatabaseSettings)
+            IOptions<AddressDataBaseSettings> addressDataBaseSettings)
         {
             var mongoClient = new MongoClient(
-                bookStoreDatabaseSettings.Value.ConnectionString);
+                addressDataBaseSettings.Value.ConnectionString);
 
             var mongoDatabase = mongoClient.GetDatabase(
-                bookStoreDatabaseSettings.Value.DatabaseName);
+                addressDataBaseSettings.Value.DatabaseName);
 
             _addressCollection = mongoDatabase.GetCollection<AddressInfo>(
-                bookStoreDatabaseSettings.Value.AddressColletionName);
+                addressDataBaseSettings.Value.AddressColletionName);
         }
 
         public async Task<List<AddressInfo>> GetAsync() =>
             await _addressCollection.Find(_ => true).ToListAsync();
 
-        public async Task<AddressInfo?> GetAsync(ObjectId id) =>
+        public async Task<AddressInfo?> GetAsyncById(ObjectId id) =>
             await _addressCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         public void CreateAsync(AddressInfo newBook) =>
