@@ -29,11 +29,11 @@ namespace AddressInfoRepository
         public async Task<AddressInfo?> GetAsyncById(ObjectId id) =>
             await _addressCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public void CreateAsync(AddressInfo newBook) =>
-             _addressCollection.InsertOne(newBook);
+        public void CreateAsync(AddressInfo newAddres) =>
+             _addressCollection.InsertOne(newAddres);
 
-        public async Task UpdateAsync(ObjectId id, AddressInfo updatedBook) =>
-            await _addressCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
+        public async Task UpdateAsync(AddressInfo addressInfosUpdate) =>
+            await _addressCollection.ReplaceOneAsync(x => x.Id == addressInfosUpdate.Id, addressInfosUpdate);
 
         public async Task RemoveAsync(ObjectId id) =>
             await _addressCollection.DeleteOneAsync(x => x.Id == id);

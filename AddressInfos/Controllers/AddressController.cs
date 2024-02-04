@@ -27,11 +27,11 @@ namespace AddressInfos.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<AddressInfo>> GetAddress(string id)
+        public async Task<ActionResult<AddressInfosResponse>> GetAddressById(string id)
         {
             ObjectId addressInfoId = new ObjectId(id);
 
-            AddressInfo addressInfos = await _addressService.GetAsync(addressInfoId);
+            AddressInfo addressInfos = await _addressService.GetAsyncById(addressInfoId);
 
             if (addressInfos == null)
                 return NoContent();
@@ -39,6 +39,16 @@ namespace AddressInfos.Controllers
             AddressInfosResponse response = AddressInfoMapper.AddressInfosResponseMapper(addressInfos);
 
             return Ok(response);
+        }
+
+        [HttpPost(Name = "UpdateAddressById")]
+        public async Task<ActionResult<AddressInfosResponse>> UpdateAddressById(JsonAddressInfo jsonAddressInfo)
+        {
+            AddressInfo addressInfo = AddressInfoMapper.AddresInfosUpdateMapper(jsonAddressInfo);
+
+            _addressService.UpdateAsync(addressInfo);
+
+            return Ok();
         }
     }
 }

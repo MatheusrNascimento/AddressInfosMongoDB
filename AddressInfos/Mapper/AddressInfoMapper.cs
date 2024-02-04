@@ -32,5 +32,19 @@ namespace AddressInfos.Mapper
 
             return addressInfosResponse;
         }
+
+        public static AddressInfo AddresInfosUpdateMapper(JsonAddressInfo jsonAddressInfo)
+        {
+            AddressInfo addressInfo = new()
+            {
+                Id = new MongoDB.Bson.ObjectId(jsonAddressInfo.Id),
+                Street = jsonAddressInfo.Street,
+                CEP = jsonAddressInfo.CEP,
+                State = jsonAddressInfo.State,
+                Neighborhood = jsonAddressInfo.Neighborhood
+            };
+
+            return addressInfo;
+        }
     }
 }

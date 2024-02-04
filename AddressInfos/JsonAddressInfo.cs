@@ -6,6 +6,8 @@ namespace AddressInfos
 {
     public class JsonAddressInfo
     {
+        public string Id { get; set; }
+
         [Required]
         public string Street { get; set; }
 
