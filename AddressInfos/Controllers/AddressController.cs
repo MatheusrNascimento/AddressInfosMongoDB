@@ -19,36 +19,59 @@ namespace AddressInfos.Controllers
         [HttpPut(Name = "InsertAddress")]
         public IActionResult InsertAddress(JsonAddressInfo address)
         {
-            AddressInfo addressInfo = AddressInfoMapper.AddressInfosInsertMapper(address);
+            try
+            {
+                AddressInfo addressInfo = AddressInfoMapper.AddressInfosInsertMapper(address);
 
-            _addressService.CreateAsync(addressInfo);
+                _addressService.CreateAsync(addressInfo);
 
-            return Ok(new { Id = addressInfo.Id.ToString() });
+                return Ok(new { Id = addressInfo.Id.ToString() });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet]
         public async Task<ActionResult<AddressInfosResponse>> GetAddressById(string id)
         {
-            ObjectId addressInfoId = new ObjectId(id);
+            try
+            {
+                ObjectId addressInfoId = new ObjectId(id);
 
-            AddressInfo addressInfos = await _addressService.GetAsyncById(addressInfoId);
+                AddressInfo addressInfos = await _addressService.GetAsyncById(addressInfoId);
 
-            if (addressInfos == null)
-                return NoContent();
+                if (addressInfos == null)
+                    return NoContent();
 
-            AddressInfosResponse response = AddressInfoMapper.AddressInfosResponseMapper(addressInfos);
+                AddressInfosResponse response = AddressInfoMapper.AddressInfosResponseMapper(addressInfos);
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost(Name = "UpdateAddressById")]
-        public async Task<ActionResult<AddressInfosResponse>> UpdateAddressById(JsonAddressInfo jsonAddressInfo)
+        public async Task<ActionResult> UpdateAddressById(JsonAddressInfo jsonAddressInfo)
         {
-            AddressInfo addressInfo = AddressInfoMapper.AddresInfosUpdateMapper(jsonAddressInfo);
+            try
+            {
+                AddressInfo addressInfo = AddressInfoMapper.AddresInfosUpdateMapper(jsonAddressInfo);
 
-            _addressService.UpdateAsync(addressInfo);
+                await _addressService.UpdateAsync(addressInfo);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
