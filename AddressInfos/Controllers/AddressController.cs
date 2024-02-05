@@ -26,7 +26,7 @@ namespace AddressInfos.Controllers
             return Ok(new { Id = addressInfo.Id.ToString() });
         }
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet]
         public async Task<ActionResult<AddressInfosResponse>> GetAddressById(string id)
         {
             ObjectId addressInfoId = new ObjectId(id);
