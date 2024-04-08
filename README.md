@@ -7,7 +7,7 @@
 - Swagger
 - MongoDB (Banco de Dados)
 ## Updates
-Atualmente a API apenas insere um endereço e busca por uma informação de indereço criada
+Atualmente a API insere um novo endereço, busca por um endereço cadastrado e atualiza algum endereço.
 
 # Configuração
 Escrevendo...
